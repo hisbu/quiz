@@ -6,9 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .waktu {
+            background-color: darkgoldenrod;
+            width: 70%;
+            margin: 0 auto;
+
+        }
+
+        .result {
+            background-color: forestgreen;
+            color: yellow;
+            width: 70%;
+            margin: 0 auto;
+            height: 200px;
+            text-align: center;
+            font-size: 18pt;
+            padding: 30px;
+        }
+
+        .score {
+            color: yellow;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 40pt;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
+
+    <div class="waktu" id="waktu">
+        <h2 id="atas">
+            <center>Sisa Waktu Anda Adalah <span id="time"> 03 : 00 </span> detik!</center>
+        </h2>
+
+    </div>
     <p></p>
 
 
@@ -49,11 +83,12 @@
                     `
 
             }
+            result += '<br>***************************************************************'
 
 
         }
         result += `<hr><input type="button" id="submit" value="Sumbit" onclick="proses()">`
-        document.getElementsByTagName('p')[0].innerHTML = result
+        document.getElementsByTagName('p')[0].innerHTML = '<center>' + result
         // alert(soal)
     }
     // document.getElementById('test').innerHTML = 'testsa'
@@ -61,11 +96,49 @@
 
     function proses() {
         // alert(document.querySelector('input[name=pilihan1]:checked').value)
+
+
         let jawaban1 = document.querySelector('input[name=pilihan1]:checked').value
         let jawaban2 = document.querySelector('input[name=pilihan2]:checked').value
         let jawaban3 = document.querySelector('input[name=pilihan3]:checked').value
         let jawaban4 = document.querySelector('input[name=pilihan4]:checked').value
         let jawaban5 = document.querySelector('input[name=pilihan5]:checked').value
+        // var jawaban1 = document.getElementsByName('pilihan1').value
+        // var jawaban2 = document.getElementsByName('pilihan2').value
+        // var jawaban3 = document.getElementsByName('pilihan3').value
+        // var jawaban4 = document.getElementsByName('pilihan4').value
+        // var jawaban5 = document.getElementsByName('pilihan5').value
+
+        // if (document.querySelector('input[name=pilihan1]:checked').checked = true) {
+        //     let jawaban1 = document.querySelector('input[name=pilihan1]:checked').value
+        // } else {
+        //     let jawaban1 = 'none'
+        // }
+
+        // if (document.querySelector('input[name=pilihan2]:checked').checked = true) {
+        //     let jawaban2 = document.querySelector('input[name=pilihan2]:checked').value
+        // } else {
+        //     let jawaban2 = 'none'
+        // }
+
+        // if (document.querySelector('input[name=pilihan3]:checked').checked = true) {
+        //     let jawaban3 = document.querySelector('input[name=pilihan3]:checked').value
+        // } else {
+        //     let jawaban3 = 'none'
+        // }
+
+        // if (document.querySelector('input[name=pilihan4]:checked').checked = true) {
+        //     let jawaban4 = document.querySelector('input[name=pilihan4]:checked').value
+        // } else {
+        //     let jawaban4 = 'none'
+        // }
+
+        // if (document.querySelector('input[name=pilihan5]:checked').checked = true) {
+        //     let jawaban5 = document.querySelector('input[name=pilihan5]:checked').value
+        // } else {
+        //     let jawaban5 = 'none'
+        // }
+
 
         var benar = 0
         var score = 0
@@ -73,23 +146,50 @@
             // for (var j = 0; j < quiz[i].cPilihan.length; j++) {
             if (jawaban1 == quiz[i].cJawaban) {
                 benar++
-            } else if (jawaban2 == quiz[i].cJawaban) {
+            } else
+            if (jawaban2 == quiz[i].cJawaban) {
                 benar++
-            } else if (jawaban3 == quiz[i].cJawaban) {
+            } else
+            if (jawaban3 == quiz[i].cJawaban) {
                 benar++
-            } else if (jawaban4 == quiz[i].cJawaban) {
+            } else
+            if (jawaban4 == quiz[i].cJawaban) {
                 benar++
-            } else if (jawaban5 == quiz[i].cJawaban) {
+            } else
+            if (jawaban5 == quiz[i].cJawaban) {
                 benar++
             }
         }
         score = benar * 20
         // alert(score)
         // document.getElementsByTagName('p')[0] = ''
-        document.getElementById('submit').innerHTML = ''
-        document.getElementsByTagName('p')[0].innerHTML = '<center>Score anda adalah ' + score
-
+        // document.getElementById('submit').innerHTML = ''
+        document.getElementById('atas').innerHTML = '<center>Selamat anda telah menyelesaikan Quiz ini'
+        document.getElementsByTagName('p')[0].innerHTML =
+            '<div class="result">Score anda adalah<br> <div class="score">' +
+            score + '</div></div>'
     }
+
+    function startTimer(duration, display) {
+        var timer = duration,
+            minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = `${minutes} : ${seconds}`;
+            if (--timer < 0) {
+                timer = 0;
+                proses()
+            }
+        }, 1000);
+    }
+    window.onload = function () {
+        var fiveMinutes = 10
+        display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
+    };
 </script>
 
 </html>
