@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p></p>
+
+
+
+
+</body>
+
+<script>
+    // document.getElementsByTagName('p')[0].innerHTML = 'test'
+    class soal {
+        constructor(pertanyaan, pilihan, jawaban) {
+            this.cPertanyaan = pertanyaan,
+                this.cPilihan = pilihan,
+                this.cJawaban = jawaban
+        }
+    }
+
+    var quiz = [
+        new soal('Otak dari komputer adalah', ['RAM', 'ROM', 'CPU'], 'CPU'),
+        new soal('Saat menyimpan data, data tersebut disimpan di?', ['RAM', 'HardDrive', 'CPU'], 'HardDrive'),
+        new soal('RAM singkatan dari', ['Random access memory', 'Rack and Rugs', 'Random access mobile'],
+            'Random access memory'),
+        new soal('____ adalah jaringan untuk menghubungkan satu kota', ['WAN', 'MAN', 'LAN'], 'MAN'),
+        new soal('Salah satu aplikasi untuk membuat presentasi adalah', ['MS-WOrd', 'MS-Excel', 'MS-PowerPoint'],
+            'MS-PowerPoint')
+    ]
+
+    function printSoal() {
+        var result = ''
+        for (var i = 0; i < quiz.length; i++) {
+            result += `
+                    <p><b>Pertanyaan ke - ${i+1}</b></p>
+                <p>${quiz[i].cPertanyaan}</p>
+            `
+            for (var j = 0; j < quiz[i].cPilihan.length; j++) {
+                result += `
+                <input type="radio" value="${quiz[i].cPilihan[j]}" name='pilihan${i+1}'>${quiz[i].cPilihan[j]}
+                    `
+
+            }
+
+
+        }
+        result += `<hr><input type="button" id="submit" value="Sumbit" onclick="proses()">`
+        document.getElementsByTagName('p')[0].innerHTML = result
+        // alert(soal)
+    }
+    // document.getElementById('test').innerHTML = 'testsa'
+    printSoal()
+
+    function proses() {
+        // alert(document.querySelector('input[name=pilihan1]:checked').value)
+        let jawaban1 = document.querySelector('input[name=pilihan1]:checked').value
+        let jawaban2 = document.querySelector('input[name=pilihan2]:checked').value
+        let jawaban3 = document.querySelector('input[name=pilihan3]:checked').value
+        let jawaban4 = document.querySelector('input[name=pilihan4]:checked').value
+        let jawaban5 = document.querySelector('input[name=pilihan5]:checked').value
+
+        var benar = 0
+        var score = 0
+        for (var i = 0; i < quiz.length; i++) {
+            // for (var j = 0; j < quiz[i].cPilihan.length; j++) {
+            if (jawaban1 == quiz[i].cJawaban) {
+                benar++
+            } else if (jawaban2 == quiz[i].cJawaban) {
+                benar++
+            } else if (jawaban3 == quiz[i].cJawaban) {
+                benar++
+            } else if (jawaban4 == quiz[i].cJawaban) {
+                benar++
+            } else if (jawaban5 == quiz[i].cJawaban) {
+                benar++
+            }
+        }
+        score = benar * 20
+        // alert(score)
+        // document.getElementsByTagName('p')[0] = ''
+        document.getElementById('submit').innerHTML = ''
+        document.getElementsByTagName('p')[0].innerHTML = '<center>Score anda adalah ' + score
+
+    }
+</script>
+
+</html>
